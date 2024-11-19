@@ -81,3 +81,5 @@ const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorde
           </div>
         );
       };
+
+export default TabList
