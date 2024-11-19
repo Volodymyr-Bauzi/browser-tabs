@@ -16,3 +16,5 @@ const TabList: React.FC<TabListProps> = ({tabs}) => {
         </div>
     )
 }
+
+export default TabList;
