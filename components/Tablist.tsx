@@ -8,9 +8,10 @@ interface TabListProps {
     activeTab: string | null;
     onTabChange: (tabId: string) => void;
     onReorder: (updatedTabs: Tab[]) => void;
+    onPinToggle: (tabId: string, isPinned: boolean) => void
 }
 
-const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorder}) => {
+const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorder, onPinToggle}) => {
     const [isDragging, setIsDragging] = useState(false);
     const dragStartIndex = useRef<number | null>(null);
     const [mobileHold, setMobileHold] = useState(false);
@@ -86,40 +87,50 @@ const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorde
           const handleTouchEnd = () => {
             setMobileHold(false);
           };
-      
-        return (
-          <div className={styles.tabList} ref={containerRef}>
-            {tabs
-              .filter((tab) => !hiddenTabs.includes(tab))
-              .map((tab, index) => (
-                <div
-                  key={tab.id}
-                  className={`${styles.tab} ${tab.isPinned ? styles.pinned : ''} ${
-                    activeTab === tab.id ? styles.active : ''
-                  }`}
-                  draggable={!tab.isPinned}
-          onDragStart={() => handleDragStart(index)}
-          onDragOver={(e) => handleDragOver(e, index)}
-          onDragEnd={handleDragEnd}
-          onClick={() => handleTabClick(tab.id)}
-          onTouchStart={handleTouchStart}
-          onTouchEnd={handleTouchEnd}
-                >
-                  <p>{tab.label}</p>
-                </div>
-              ))}
-      
-            {/* Бургер-меню для прихованих вкладок */}
-            <div className={styles.burgerMenu} ref={moreButtonRef}>
-              <BurgerMenu
-                hiddenTabs={hiddenTabs}
-                onTabClick={(tabId: string) => {
-                  onTabChange(tabId);
-                }}
-              />
-            </div>
-          </div>
-        );
-      };
 
-export default TabList
+          const handlePinToggle = (tabId: string) => {
+            const tab = tabs.find((t) => t.id === tabId);
+            if (tab) {
+              onPinToggle(tabId, !tab.isPinned); // Toggle the pinned state
+            }
+          };
+      
+    return (
+    <div className={styles.tabList} ref={containerRef}>
+        {tabs
+        .filter((tab) => !hiddenTabs.includes(tab))
+        .map((tab) => (
+            <div
+            key={tab.id}
+            className={`${styles.tab} ${tab.isPinned ? styles.pinned : ''} ${
+                activeTab === tab.id ? styles.active : ''
+            }`}
+            onClick={() => !tab.isPinned && handleTabClick(tab.id)}
+            >
+            <p>{tab.label}</p>
+            <button
+                className={styles.pinButton}
+                onClick={(e) => {
+                e.stopPropagation(); // Prevent triggering tab click
+                handlePinToggle(tab.id);
+                }}
+            >
+                {tab.isPinned ? "🔒" : "🔓"}
+            </button>
+            </div>
+        ))}
+
+        {/* Burger Menu */}
+        <div className={styles.burgerMenu} ref={moreButtonRef}>
+        <BurgerMenu
+            hiddenTabs={hiddenTabs}
+            onTabClick={(tabId: string) => {
+            onTabChange(tabId);
+            }}
+        />
+        </div>
+    </div>
+    );
+};
+        
+export default TabList;
