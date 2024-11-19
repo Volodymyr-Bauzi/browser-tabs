@@ -24,7 +24,7 @@ const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorde
                     }`}
                     onClick={() => handleTabClick(tab.id)}
                 >
-                    {tab.label}
+                    <p>{tab.label}</p>
                 </div>
             ))}
         </div>
