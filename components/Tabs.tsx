@@ -44,6 +44,7 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
         <div>
             <TabList 
                 tabs={tabs}
+                activeTab={activeTab}
             />
         </div>
     
