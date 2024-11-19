@@ -54,15 +54,27 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
         }
       };
 
+      const moveTab = (fromIndex: number, toIndex: number) => {
+        // Ensure that the indices are within bounds
+        if (fromIndex < 0 || fromIndex >= tabs.length || toIndex < 0 || toIndex >= tabs.length) {
+          return;
+        }
+    
+        const updatedTabs = [...tabs]; // Copy the tabs array to avoid direct mutation
+        const [movedTab] = updatedTabs.splice(fromIndex, 1); // Remove the tab from the original index
+        updatedTabs.splice(toIndex, 0, movedTab); // Insert the tab into the new position
+    
+        setTabs(updatedTabs); // Update the state with the new tab order
+      };
+
     return (
         <div>
             <TabList
                 tabs={tabs}
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
-                onReorder={handleTabReorder}
                 onPinToggle={handlePinToggle}
-                onTabClick={handleTabClick}
+                moveTab={moveTab}
             />
         </div>
 
