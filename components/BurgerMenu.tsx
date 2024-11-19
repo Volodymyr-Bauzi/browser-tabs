@@ -16,7 +16,9 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ hiddenTabs, onTabClick }) => {
         className={styles.burgerButton}
         onClick={() => setIsMenuOpen(!isMenuOpen)}
       >
-        More
+        <p>
+            {isMenuOpen ? '↑' : '↓'}
+        </p>
       </button>
       {isMenuOpen && (
         <div className={styles.burgerDropdown}>
