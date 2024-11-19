@@ -1,6 +1,7 @@
 import { useRouter } from "next/router";
 import { useEffect, useState } from "react";
 import { loadTabsState, saveTabsState } from "../utils/storage";
+import TabList from "./Tablist";
 
 export interface Tab {
     id: string;
@@ -41,7 +42,9 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
 
     return (
         <div>
-            <h1>TabList</h1>
+            <TabList 
+                tabs={tabs}
+            />
         </div>
     
     )
