@@ -2,7 +2,6 @@ import { useEffect, useRef, useState } from "react";
 import { Tab } from "./Tabs";
 import styles from './Tablist.module.css'
 import BurgerMenu from "./BurgerMenu";
-import { useRouter } from "next/router";
 
 interface TabListProps {
     tabs: Tab[];
@@ -20,7 +19,6 @@ const TabList: React.FC<TabListProps> = ({tabs, activeTab, onTabChange, onReorde
   const [draggedTabId, setDraggedTabId] = useState<string | null>(null);
   const [dragTimeout, setDragTimeout] = useState<NodeJS.Timeout | null>(null);
   const [isDragging, setIsDragging] = useState<boolean>(false);
-  const router = useRouter();
 
   useEffect(() => {
     const calculateVisibleTabs = () => {
