@@ -46,3 +46,5 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
     
     )
 }
+
+export default Tabs;
