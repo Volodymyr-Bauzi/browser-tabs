@@ -1,14 +1,14 @@
-import React from "react";
-import "./BurgerMenu.css";
-import styles from './BurgerMenu.module.css'
+import React, { useState } from "react";
+import { Tab } from "./Tabs";
+import styles from './BurgerMenu.module.css';
 
 interface BurgerMenuProps {
-  hiddenTabs: string[];
-  onTabClick: (index: number) => void;
+  hiddenTabs: Tab[];
+  onTabClick: (tabId: string) => void;
 }
 
 const BurgerMenu: React.FC<BurgerMenuProps> = ({ hiddenTabs, onTabClick }) => {
-  const [isMenuOpen, setIsMenuOpen] = React.useState(false);
+  const [isMenuOpen, setIsMenuOpen] = useState(false);
 
   return (
     <div className={styles.burgerMenu}>
@@ -20,16 +20,16 @@ const BurgerMenu: React.FC<BurgerMenuProps> = ({ hiddenTabs, onTabClick }) => {
       </button>
       {isMenuOpen && (
         <div className={styles.burgerDropdown}>
-          {hiddenTabs.map((tab, index) => (
+          {hiddenTabs.map((tab) => (
             <div
-              key={index}
+              key={tab.id}
               className={styles.burgerItem}
               onClick={() => {
-                onTabClick(index);
+                onTabClick(tab.id);
                 setIsMenuOpen(false);
               }}
             >
-              {tab}
+              {tab.label}
             </div>
           ))}
         </div>
