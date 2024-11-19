@@ -17,7 +17,7 @@ interface TabsProps {
 const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
     const router = useRouter()
     const [tabs, setTabs] = useState<Tab[]>([])
-    const [activeTab, setActiveTab] = useState<string | null>(null) 
+    const [activeTab, setActiveTab] = useState<string | null>(null)
 
     useEffect(() => {
         const savedTabs = loadTabsState();
@@ -29,8 +29,8 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
     }, [tabs])
 
     const handleTabChange = (tabId: string) => {
-        const selectedTab = tabs.find((tab) => tab.id  === tabId)
-        if (selectedTab) { 
+        const selectedTab = tabs.find((tab) => tab.id === tabId)
+        if (selectedTab) {
             setActiveTab(tabId)
             router.push(selectedTab.url)
         }
@@ -42,12 +42,14 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
 
     return (
         <div>
-            <TabList 
+            <TabList
                 tabs={tabs}
                 activeTab={activeTab}
+                onTabChange={handleTabChange}
+                onReorder={handleTabReorder}
             />
         </div>
-    
+
     )
 }
 
