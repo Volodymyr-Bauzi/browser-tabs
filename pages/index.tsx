@@ -1,7 +1,7 @@
 import Tabs, { Tab } from '../components/Tabs';
 
 const initialTabs: Tab[] = [
-  { id: '1', label: 'Dashboard', url: '/', isPinned: true },
+  { id: '1', label: 'Dashboa', url: '/', isPinned: true },
   { id: '2', label: 'Banking', url: `/banking`, isPinned: false },
   { id: '3', label: 'Telefonie', url: '/telefonie', isPinned: false },
   { id: '4', label: 'Accounting', url: '/accounting', isPinned: false },
