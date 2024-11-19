@@ -40,6 +40,15 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
         setTabs(updatedTabs)
     }
 
+    const handlePinToggle = (tabId: string, isPinned: boolean) => {
+        setTabs((prevTabs) =>
+          prevTabs.map((tab) =>
+            tab.id === tabId ? { ...tab, isPinned } : tab
+          )
+        );
+      };
+      
+
     return (
         <div>
             <TabList
@@ -47,6 +56,7 @@ const Tabs: React.FC<TabsProps> = ({ initialTabs }) => {
                 activeTab={activeTab}
                 onTabChange={handleTabChange}
                 onReorder={handleTabReorder}
+                onPinToggle={handlePinToggle}
             />
         </div>
 

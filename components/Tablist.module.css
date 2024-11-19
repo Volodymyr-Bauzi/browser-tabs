@@ -65,5 +65,4 @@
   /* Pinned Tab */
   .tab.pinned {
     opacity: 0.6;
-    cursor: not-allowed;
   }
